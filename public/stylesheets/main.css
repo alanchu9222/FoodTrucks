@@ -84,13 +84,26 @@ body {
   flex-wrap: wrap;
 }
 
-
 /* Edit form */
 .column {
   float: left;
   width: 50%;
   padding: 10px;
 }
+.column60 {
+  float: left;
+  width: 60%;
+  padding: 10px;
+  margin: 0.5rem;
+}
+.column30 {
+  float: center;
+  width: 30%;
+  padding: 10px;
+  margin: 0.5rem;
+  text-align: center;
+}
+
 .textarea {
   width: 100%;
   height: 150px;
