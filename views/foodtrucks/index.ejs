@@ -1,0 +1,33 @@
+<% include ../partials/header %>
+
+<div class="container">
+<% if(!currentUser){ %>
+  <header class="jumbotron">
+    <div class="container">
+      <h1 class="welcome">
+        Welcome Gastronomic Adventurer!
+      </h1>
+    </div>
+  </header>
+<% } %>
+
+
+  <div class="row text-center" style="display:flex; flex-wrap:wrap;">
+    <% foodtrucks.forEach(function(foodtruck) { %>
+    <div class="col-md-3 col-sm-6">
+      <div class="img-thumbnail">
+        <img class="img-thumbnail" src="<%=foodtruck.image%>" />
+        <div class="caption">
+          <%=foodtruck.name%>
+        </div>
+        <p>
+          <a class="btn btn-primary" href="/foodtrucks/<%=foodtruck._id%>"
+            >More Info</a
+          >
+        </p>
+      </div>
+    </div>
+    <% });%>
+  </div>
+</div>
+<% include ../partials/footer %>
