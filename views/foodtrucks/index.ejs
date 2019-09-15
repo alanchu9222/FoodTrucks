@@ -1,16 +1,15 @@
 <% include ../partials/header %>
 
 <div class="container">
-<% if(!currentUser){ %>
+  <% if(!currentUser){ %>
   <header class="jumbotron">
     <div class="container">
       <h1 class="welcome">
-        Welcome Gastronomic Adventurer!
+        Welcome Food Hunter!
       </h1>
     </div>
   </header>
-<% } %>
-
+  <% } %>
 
   <div class="row text-center" style="display:flex; flex-wrap:wrap;">
     <% foodtrucks.forEach(function(foodtruck) { %>
@@ -21,7 +20,7 @@
           <%=foodtruck.name%>
         </div>
         <p>
-          <a class="btn btn-primary" href="/foodtrucks/<%=foodtruck._id%>"
+          <a class="btn btn-primary btn-ripple" href="/foodtrucks/<%=foodtruck._id%>"
             >More Info</a
           >
         </p>

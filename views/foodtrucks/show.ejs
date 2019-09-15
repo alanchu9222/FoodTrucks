@@ -1,71 +1,91 @@
 <% include ../partials/header %>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-3">
-				<p class="lead">Melbourne City Food Trucks</p>
-				<div class="list-group">
-					<li class="list-group-item active">Info 1</li>
-					<li class="list-group-item">Info 2</li>
-					<li class="list-group-item">Info 3</li>
-				</div>
-			</div>
-			<div class="col-md-9">
-				<div class="thumbnail">
-					<img class="img-responsive" src="<%= foodtruck.image %>">
-					<div class="caption-full">
-						<h4 class="pull-right"> 
-						<i class="fa fa-phone"></i> <%= foodtruck.phone %> 
-						<i class="fa fa-envelope"></i> <%= foodtruck.email %> 
-						<i class="fa fa-utensils"></i> <%= foodtruck.category %></h4>
-						<h4>
-							<a>
-								<%=foodtruck.name%>
-							</a>
-						</h4>
-						<p>
-							<%= foodtruck.description %>
-						</p>
-						<p>
-							<em>Submitted By
-								<%= foodtruck.author.username %>
-							</em>
-						</p>
-						<% if(currentUser && foodtruck.author.id.equals(currentUser._id)){ %>
-							<a class="btn btn-xs btn-warning" href="/foodtrucks/<%= foodtruck._id %>/edit">Edit</a>
-							<form id="delete-form" action="/foodtrucks/<%= foodtruck._id %>?_method=DELETE" method="POST">
-								<button class="btn btn-xs btn-danger">Delete</button>
-							</form>
-							<% }%>
-					</div>
-				</div>
-				<div class="well">
-					<div class="text-right">
-						<a class="btn btn-success" href="/foodtrucks/<%= foodtruck._id %>/comments/new">Add New Comment</a>
-					</div>
-					<hr>
-					<% foodtruck.comments.forEach(function(comment){ %>
-						<div class="row">
-							<div class="col-md-12">
-								<strong>
-									<%= comment.author.username %>
-								</strong>
-								<span class="pull-right">10 days ago</span>
-								<p>
-									<%= comment.text %>
-								</p>
-						<% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
-								
-								<a class="btn btn-xs btn-warning" href="/foodtrucks/<%=foodtruck._id %>/comments/<%=comment._id %>/edit">Edit</a>
-								<form id="delete-form" action="/foodtrucks/<%=foodtruck._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
-									<input type="submit" class="btn btn-xs btn-danger" value="Delete">
-								</form>
-								<%}%>
-							</div>
-						</div>
-						<% }) %>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <p class="lead">Melbourne City Food Trucks</p>
+      <div class="list-group">
+	  </div>
+    </div>
+    <div class="col-md-9">
+      <div class="thumbnail">
+        <img class="img-responsive" src="<%= foodtruck.image %>" />
+        <div class="caption-full">
+          <h4 class="pull-right">
+            <i class="fa fa-phone"></i> <%= foodtruck.phone %>
+            <i class="fa fa-envelope"></i> <%= foodtruck.email %>
+            <i class="fa fa-utensils"></i> <%= foodtruck.category %>
+          </h4>
+          <h4>
+            <a>
+              <%=foodtruck.name%>
+            </a>
+          </h4>
+          <p>
+            <%= foodtruck.description %>
+          </p>
+          <p>
+            <em>Submitted By <%= foodtruck.author.username %> </em>
+          </p>
+          <% if(currentUser && foodtruck.author.id.equals(currentUser._id)){ %>
+          <a
+            class="btn btn-xs btn-warning btn-primary btn-ripple"
+            href="/foodtrucks/<%= foodtruck._id %>/edit"
+            >Edit</a
+          >
+          <form
+            id="delete-form"
+            action="/foodtrucks/<%= foodtruck._id %>?_method=DELETE"
+            method="POST"
+          >
+            <button class="btn btn-xs btn-danger btn-primary btn-ripple">Delete</button>
+          </form>
+          <% }%>
+        </div>
+      </div>
+      <div class="well">
+        <div class="text-right">
+          <a
+            class="btn btn-success btn-primary btn-ripple"
+            href="/foodtrucks/<%= foodtruck._id %>/comments/new"
+            >Add New Comment</a
+          >
+        </div>
+        <hr />
+        <% foodtruck.comments.forEach(function(comment){ %>
+        <div class="row">
+          <div class="col-md-12">
+            <strong>
+              <%= comment.author.username %>
+            </strong>
+            <span class="pull-right">10 days ago</span>
+            <p>
+              <%= comment.text %>
+            </p>
+            <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
 
-	<% include ../partials/footer %>
+            <a
+              class="btn btn-xs btn-warning"
+              href="/foodtrucks/<%=foodtruck._id %>/comments/<%=comment._id %>/edit"
+              >Edit</a
+            >
+            <form
+              id="delete-form"
+              action="/foodtrucks/<%=foodtruck._id %>/comments/<%=comment._id %>?_method=DELETE"
+              method="POST"
+            >
+              <input
+                type="submit"
+                class="btn btn-xs btn-danger btn-primary btn-ripple"
+                value="Delete"
+              />
+            </form>
+            <%}%>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include ../partials/footer %>
