@@ -147,3 +147,21 @@ body {
   font-size: 16px;
   resize: none;
 }
+
+/* Menu styling */
+.menu_item_col {
+  width: 50%;
+}
+
+.left {
+  float: left;
+  border-left: none;
+  border-right: none;
+}
+
+.right {
+  float: right;
+  border-left: none;
+  border-right: none;
+  text-align: right;
+}

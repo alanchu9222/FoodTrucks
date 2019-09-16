@@ -2,9 +2,17 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <p class="lead">Melbourne City Food Trucks</p>
+      <p class="lead"><%= foodtruck.name %> Menu</p>
       <div class="list-group">
-	  </div>
+        <% const max= foodtruck.item.length;
+		for (let i=0; i<max; i++) {%>
+			<% if(foodtruck.item[i]) { %>
+			<div class="list-group-item menu_item_col left"><%=foodtruck.item[i]%></div>
+			<div class="list-group-item menu_item_col right">$<%=foodtruck.price[i]%></div>
+			<% } %>
+		<%}
+		%>
+      </div>
     </div>
     <div class="col-md-9">
       <div class="thumbnail">
@@ -37,7 +45,9 @@
             action="/foodtrucks/<%= foodtruck._id %>?_method=DELETE"
             method="POST"
           >
-            <button class="btn btn-xs btn-danger btn-primary btn-ripple">Delete</button>
+            <button class="btn btn-xs btn-danger btn-primary btn-ripple">
+              Delete
+            </button>
           </form>
           <% }%>
         </div>
