@@ -7,6 +7,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  color: teal;
 }
 .btn-ripple {
   display: inline-block;
@@ -57,6 +58,12 @@ body {
   background-color: #009688 !important;
   border: none;
 }
+.btn-primary:hover {
+  /* background-color: #009688 !important; */
+  background-color: teal !important;
+  border: none;
+}
+
 .navbar-brand {
   color: white;
   font-size: x-large;
@@ -164,4 +171,13 @@ body {
   border-left: none;
   border-right: none;
   text-align: right;
+}
+/* Mapbox styling */
+/* Set the size of the div element that contains the map */
+#map {
+  padding-top: 20px;
+  height: 400px;
+  /* The height is 200 pixels */
+  width: 100%;
+  /* The width is the width of the web page */
 }

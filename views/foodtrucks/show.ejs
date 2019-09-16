@@ -12,8 +12,9 @@
 			<% } %>
 		<%}
 		%>
-      </div>
-    </div>
+	  </div>
+	  <div id="map"></div>
+	</div>		  
     <div class="col-md-9">
       <div class="thumbnail">
         <img class="img-responsive" src="<%= foodtruck.image %>" />
@@ -94,8 +95,22 @@
         </div>
         <% }) %>
       </div>
-    </div>
+	</div>
   </div>
 </div>
 
+<script>
+const lat = -37.8136;
+const lon = 144.9631;
+
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiYWxhbmNodSIsImEiOiJjazBsdzA4OXAwbzdpM2VwOW1zaGo4NWl4In0.EYn2kr7DOFk0PSMVk3lhSQ";
+var map = new mapboxgl.Map({
+  container: "map", // HTML container id
+  style: "mapbox://styles/mapbox/streets-v11", // style URL
+  center: [lon, lat], // starting position as [lng, lat]
+  zoom: 13
+});
+var marker = new mapboxgl.Marker().setLngLat([lon, lat]).addTo(map);
+</script>
 <% include ../partials/footer %>

@@ -6,12 +6,16 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
     />
-	
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
     />
-	
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
@@ -20,16 +24,34 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="/">Melbourne City Food Trucks</a>
         </div>
-		
+
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             <% if(!currentUser){ %>
-            <li><a class="btn btn-lg btn-primary btn-ripple" href="/login">Login</a></li>
-            <li><a class="btn btn-lg btn-primary btn-ripple" href="/register">Sign Up</a></li>
+            <li>
+              <a class="btn btn-lg btn-primary btn-ripple" href="/login"
+                >Login</a
+              >
+            </li>
+            <li>
+              <a class="btn btn-lg btn-primary btn-ripple" href="/register"
+                >Sign Up</a
+              >
+            </li>
             <% } else { %>
             <li><a href="#">User: <%= currentUser.username %></a></li>
-            <li><a class="btn btn-lg btn-primary btn-ripple" href="/foodtrucks/new">Add a Truck</a></li>			
-            <li><a class="btn btn-lg btn-primary btn-ripple" href="/logout">Logout</a></li>
+            <li>
+              <a
+                class="btn btn-lg btn-primary btn-ripple"
+                href="/foodtrucks/new"
+                >Add a Truck</a
+              >
+            </li>
+            <li>
+              <a class="btn btn-lg btn-primary btn-ripple" href="/logout"
+                >Logout</a
+              >
+            </li>
             <% } %>
           </ul>
         </div>
