@@ -50,7 +50,8 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
     }
     const lat = data[0].latitude;
     const lon = data[0].longitude;
-    const location = data[0].formattedAddress;
+    // const location = data[0].formattedAddress;
+    const location = req.body.location;
 
     //    const newFoodtruck = {name: name, image: image, price: price, description: desc, author:author}
     const newFoodtruck = {
@@ -109,26 +110,50 @@ router.get("/:id/edit", middleware.checkFoodtruckOwnership, function(req, res) {
     console.log("One food truck - Edit");
     const str = JSON.stringify(foundFoodtruck);
     console.log("------> " + str);
-
     res.render("foodtrucks/edit", { foodtruck: foundFoodtruck });
   });
 });
 
 // UPDATE FOODTRUCK ROUTE
 router.put("/:id", middleware.checkFoodtruckOwnership, function(req, res) {
-  // find and update the correct foodtruck
-  FoodTruck.findByIdAndUpdate(req.params.id, req.body.foodtruck, function(
-    err,
-    updatedFoodtruck
-  ) {
-    if (err) {
-      res.redirect("/foodtrucks");
-    } else {
-      console.log("One food truck -update");
-      const str = JSON.stringify(req.body.foodtruck);
-      console.log("------> " + str); //redirect somewhere(show page)
-      res.redirect("/foodtrucks/" + req.params.id);
+  geocoder.geocode(req.body.foodtruck.location, function(err, data) {
+    if (err || !data.length) {
+      req.flash("error", "Invalid address");
+      return res.redirect("back");
     }
+    const lat = data[0].latitude;
+    const lon = data[0].longitude;
+    const location = req.body.foodtruck.location;
+
+    //    const newFoodtruck = {name: name, image: image, price: price, description: desc, author:author}
+    const newFoodtruck = {
+      name: req.body.foodtruck.name,
+      image: req.body.foodtruck.image,
+      email: req.body.foodtruck.email,
+      phone: req.body.foodtruck.phone,
+      category: req.body.foodtruck.category,
+      description: req.body.foodtruck.desc,
+      location: req.body.foodtruck.location,
+      lat: lat,
+      lon: lon,
+      author: req.body.foodtruck.author,
+      item: req.body.foodtruck.item,
+      price: req.body.foodtruck.price
+    };
+
+    // find and update the correct foodtruck
+    FoodTruck.findByIdAndUpdate(req.params.id, req.body.foodtruck, function(
+      err,
+      updatedFoodtruck
+    ) {
+      if (err) {
+        req.flash("error", err.message);
+        res.redirect("/foodtrucks");
+      } else {
+        req.flash("success", "Successfully updated");
+        res.redirect("/foodtrucks/" + req.params.id);
+      }
+    });
   });
 });
 

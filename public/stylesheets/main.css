@@ -100,9 +100,33 @@ body {
 .thumbnail {
   padding: 0;
 }
+.img-thumbnail {
+  padding: 0px !important;
+  border: none;
+}
 
 .thumbnail .caption-full {
   padding: 9px;
+}
+.caption {
+  color: teal !important;
+  line-height: 3rem;
+  text-align: center;
+  font-weight: bold;
+}
+.img {
+  background-color: #dff0d8;
+  margin: 1rem;
+}
+.img {
+  transition: all 0.2s ease-in-out;
+}
+.img:hover {
+  transform: scale(1.1);
+}
+
+.img:active {
+  transform: scale(1.2);
 }
 
 /* Google Map styles */

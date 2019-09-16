@@ -14,18 +14,11 @@
   <div class="row text-center" style="display:flex; flex-wrap:wrap;">
     <% foodtrucks.forEach(function(foodtruck) { %>
     <div class="col-md-3 col-sm-6">
-      <div class="img-thumbnail">
-        <img class="img-thumbnail" src="<%=foodtruck.image%>" />
-        <div class="caption">
-          <%=foodtruck.name%>
-        </div>
-        <p>
-          <a
-            class="btn btn-primary btn-ripple"
-            href="/foodtrucks/<%=foodtruck._id%>"
-            >More Info</a
-          >
-        </p>
+      <div class="img-thumbnail img">
+        <a class="caption" href="/foodtrucks/<%=foodtruck._id%>">
+          <img class="img-thumbnail" src="<%=foodtruck.image%>" />
+          <%=foodtruck.name%></a
+        >
       </div>
     </div>
     <% });%>
