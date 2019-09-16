@@ -2,6 +2,14 @@ const express = require("express");
 const router = express.Router();
 const FoodTruck = require("../models/foodtruck");
 const middleware = require("../middleware");
+const NodeGeocoder = require("node-geocoder");
+const options = {
+  provider: "locationiq",
+  httpAdapter: "https",
+  apiKey: "60b9313fae35ff",
+  formatter: null
+};
+const geocoder = NodeGeocoder(options);
 
 //INDEX - show all foodtrucks
 router.get("/", function(req, res) {
@@ -35,28 +43,41 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
     item[i] = "";
     price[i] = "";
   }
-  //    const newFoodtruck = {name: name, image: image, price: price, description: desc, author:author}
-  const newFoodtruck = {
-    name: name,
-    image: image,
-    email: email,
-    phone: phone,
-    category: category,
-    description: desc,
-    author: author,
-    item: item,
-    price: price
-  };
-
-  // Create a new foodtruck and save to DB
-  FoodTruck.create(newFoodtruck, function(err, newlyCreated) {
-    if (err) {
-      console.log(err);
-    } else {
-      //redirect back to foodtrucks page
-      console.log(newlyCreated);
-      res.redirect("/foodtrucks");
+  geocoder.geocode(req.body.location, function(err, data) {
+    if (err || !data.length) {
+      req.flash("error", "Invalid address");
+      return res.redirect("back");
     }
+    const lat = data[0].latitude;
+    const lon = data[0].longitude;
+    const location = data[0].formattedAddress;
+
+    //    const newFoodtruck = {name: name, image: image, price: price, description: desc, author:author}
+    const newFoodtruck = {
+      name: name,
+      image: image,
+      email: email,
+      phone: phone,
+      category: category,
+      description: desc,
+      location: location,
+      lat: lat,
+      lon: lon,
+      author: author,
+      item: item,
+      price: price
+    };
+
+    // Create a new foodtruck and save to DB
+    FoodTruck.create(newFoodtruck, function(err, newlyCreated) {
+      if (err) {
+        console.log(err);
+      } else {
+        //redirect back to foodtrucks page
+        console.log(newlyCreated);
+        res.redirect("/foodtrucks");
+      }
+    });
   });
 });
 

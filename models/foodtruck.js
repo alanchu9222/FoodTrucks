@@ -9,6 +9,9 @@ const foodtruckSchema = new mongoose.Schema({
   phone: String,
   category: String,
   image: String,
+  location: String,
+  lat: Number,
+  lon: Number,
   description: String,
   author: {
     id: {
