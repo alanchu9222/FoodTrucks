@@ -23,11 +23,11 @@
       <div class="thumbnail">
         <img class="img-responsive" src="<%= foodtruck.image %>" />
         <div class="caption-full">
-          <h4 class="pull-right">
+          <div class="truck-story float-right">
             <i class="fa fa-phone"></i> <%= foodtruck.phone %>
             <i class="fa fa-envelope"></i> <%= foodtruck.email %>
             <i class="fa fa-utensils"></i> <%= foodtruck.category %>
-          </h4>
+          </div>
             <div class="truck-story-title">
               <%=foodtruck.name%>
             </div>
@@ -78,7 +78,7 @@
             <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
 
             <a
-              class="btn btn-warning"
+              class="btn btn-primary"
               href="/foodtrucks/<%=foodtruck._id %>/comments/<%=comment._id %>/edit"
               >Edit</a
             >

@@ -10,17 +10,47 @@ const options = {
   formatter: null
 };
 const geocoder = NodeGeocoder(options);
+let categoryList = [];
+FoodTruck.find({}, (err, allTrucks) => {
+  if (err) {
+    console.log(err);
+  } else {
+    // Extract category for every single truck
+    allTrucks.forEach(truck => {
+      categoryList.push(truck.category);
+    });
+  }
+});
+// Only unique values allowed in the Set
+const uniqueSet = new Set(categoryList);
+categoryList = [...uniqueSet];
+categoryList.sort();
+categoryList.unshift("All");
+categoryList.unshift("Select Category");
 
-//INDEX - show all foodtrucks
+//INDEX - show foodtrucks
 router.get("/", function(req, res) {
   // Get all foodtruckss from DB
-  FoodTruck.find({}, function(err, allFoodtrucks) {
+  let searchOption = {};
+  if (req.query.searchKey && req.query.searchKey !== "All") {
+    searchOption = { category: req.query.searchKey };
+  }
+
+  FoodTruck.find(searchOption, function(err, allFoodtrucks) {
     if (err) {
       console.log(err);
     } else {
-      res.render("foodtrucks/index", { foodtrucks: allFoodtrucks });
+      res.render("foodtrucks/index", {
+        foodtrucks: allFoodtrucks,
+        categories: categoryList
+      });
     }
   });
+});
+
+//CITYMAP - show map of foodtrucks
+router.get("/citymap", function(req, res) {
+  res.render("foodtrucks/citymap");
 });
 
 //CREATE - add new foodtrucks to DB
@@ -97,7 +127,7 @@ router.get("/:id", function(req, res) {
         req.flash("error", "FoodTruck not found");
         res.redirect("back");
       } else {
-        console.log(foundFoodtruck);
+        //console.log(foundFoodtruck);
         //render show template with that foodtruck
         res.render("foodtrucks/show", { foodtruck: foundFoodtruck });
       }
@@ -107,9 +137,6 @@ router.get("/:id", function(req, res) {
 // EDIT FOODTRUCK ROUTE
 router.get("/:id/edit", middleware.checkFoodtruckOwnership, function(req, res) {
   FoodTruck.findById(req.params.id, function(err, foundFoodtruck) {
-    console.log("One food truck - Edit");
-    const str = JSON.stringify(foundFoodtruck);
-    console.log("------> " + str);
     res.render("foodtrucks/edit", { foodtruck: foundFoodtruck });
   });
 });

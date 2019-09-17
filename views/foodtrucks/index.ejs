@@ -12,8 +12,20 @@
   <% } %> -->
 
   <div class="row text-center" style="display:flex; flex-wrap:wrap;">
+    <div class="col-md-3 col-sm-6" style="margin:auto;">
+      <form action="" method="GET" onchange="submit()">
+        <select class="form-control" name="searchKey">
+          <% categories.forEach((cat)=>{%>
+          <option value="<%=cat%>"><%=cat%></option>
+          <%}) %>
+        </select>
+      </form>
+    </div>
+  </div>
+
+  <div class="row text-center" style="display:flex; flex-wrap:wrap;">
     <% foodtrucks.forEach(function(foodtruck) { %>
-    <div class="col-md-3 col-sm-6">
+    <div class="col-md-3 col-sm-6 img-frame">
       <div class="img-thumbnail img">
         <a class="caption" href="/foodtrucks/<%=foodtruck._id%>">
           <img class="img-thumbnail" src="<%=foodtruck.image%>" />
