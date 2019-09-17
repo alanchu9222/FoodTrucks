@@ -2,12 +2,12 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <p class="lead"><%= foodtruck.name %>		
+      <div class="truck-menu-title"><%= foodtruck.name %>		
         <%if(foodtruck.item[0]){ %>
         Menu
         <%}%>
-      </p>	  
-      <div class="list-group">
+        </div>	  
+      <div class="list-group truck-menu">
         <% const max= foodtruck.item.length;
 		    for (let i=0; i<max; i++) {%>
 			<% if(foodtruck.item[i]) { %>
@@ -28,21 +28,19 @@
             <i class="fa fa-envelope"></i> <%= foodtruck.email %>
             <i class="fa fa-utensils"></i> <%= foodtruck.category %>
           </h4>
-          <h4>
-            <a>
+            <div class="truck-story-title">
               <%=foodtruck.name%>
-            </a>
-          </h4>
+            </div>
 
-          <p>
-            <%= foodtruck.description %>
-          </p>
+            <div class="truck-story">
+              <%= foodtruck.description %>
+            </div>
           <p>
             <em>Submitted By <%= foodtruck.author.username %> </em>
           </p>
           <% if(currentUser && foodtruck.author.id.equals(currentUser._id)){ %>
           <a
-            class="btn btn-xs btn-warning btn-primary btn-ripple"
+            class="btn btn-warning btn-primary btn-ripple"
             href="/foodtrucks/<%= foodtruck._id %>/edit"
             >Edit</a
           >
@@ -51,7 +49,7 @@
             action="/foodtrucks/<%= foodtruck._id %>?_method=DELETE"
             method="POST"
           >
-            <button class="btn btn-xs btn-danger btn-primary btn-ripple">
+            <button class="btn btn-danger btn-primary btn-ripple">
               Delete
             </button>
           </form>
@@ -80,7 +78,7 @@
             <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
 
             <a
-              class="btn btn-xs btn-warning"
+              class="btn btn-warning"
               href="/foodtrucks/<%=foodtruck._id %>/comments/<%=comment._id %>/edit"
               >Edit</a
             >
@@ -91,7 +89,7 @@
             >
               <input
                 type="submit"
-                class="btn btn-xs btn-danger btn-primary btn-ripple"
+                class="btn btn-danger btn-primary btn-ripple"
                 value="Delete"
               />
             </form>

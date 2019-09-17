@@ -205,3 +205,22 @@ body {
   width: 100%;
   /* The width is the width of the web page */
 }
+
+/* Show Menu and Story */
+.truck-menu-title {
+  font-family: "Permanent Marker", cursive;
+  font-size: 3rem;
+  text-align: center;
+}
+.truck-menu {
+  font-family: "Permanent Marker", cursive;
+  font-size: 2rem;
+}
+.truck-story-title {
+  font-family: "Raleway", sans-serif;
+  font-size: 3rem !important;
+}
+.truck-story {
+  font-family: "Raleway", sans-serif;
+  font-size: 2rem !important;
+}

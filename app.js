@@ -16,10 +16,21 @@ const indexRoutes = require("./routes/index");
 
 // DATABASE CONFIGURATION
 //mongoose.connect('mongodb://localhost:27017/foodtruck', { useNewUrlParser: true });
-mongoose.connect(
-  "mongodb+srv://alanchu:Pa$$w0rd@cluster0-vgrym.mongodb.net/foodtruck?retryWrites=true&w=majority",
-  { useNewUrlParser: true }
-);
+const URI =
+  "mongodb+srv://alanchu:Pa$$w0rd@cluster0-vgrym.mongodb.net/foodtruck?retryWrites=true&w=majority";
+//const URI = "mongodb://localhost:27017/foodtruck";
+
+const errorCallback = err => {
+  console.log("DB error:" + err);
+};
+
+const options = {
+  useNewUrlParser: true,
+  socketTimeoutMS: 30000,
+  keepAlive: true,
+  reconnectTries: 30000
+};
+mongoose.connect(URI, options, errorCallback);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
