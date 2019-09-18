@@ -5,7 +5,6 @@
   <div id="<%=truck._id%>" class="marker"></div>
   <%})%>
 
-  <div class="form-footer"><a href="/foodtrucks">Go to Main</a></div>
   <div class="row">
     <div class="col-md-12">
       <div id="citymap"></div>
@@ -14,6 +13,7 @@
 </div>
 
 <script>
+
    let markers = [];
 
    <%foodtrucks.forEach((truck)=>{%>
@@ -21,7 +21,9 @@
          {
            id:"<%=truck._id%>",
            lat:<%=truck.lat%>,
-           lon:<%=truck.lon%>
+           lon:<%=truck.lon%>,
+           popup: new mapboxgl.Popup({ offset: 25, closeButton: false,
+    closeOnClick: false }).setText('<%=truck.name%>')
          }
        );
    <%})%>
@@ -37,10 +39,11 @@
      center: [map_lon, map_lat], // starting position as [lng, lat]
      zoom: 11
    });
+   var popup = new mapboxgl.Popup({ offset: 25 })
+       .setText('Name of the foodtruck.');
 
    markers.forEach((marker)=>{
-      var m = new mapboxgl.Marker().setLngLat([marker.lon, marker.lat]).addTo(map);
-      console.log("marker for "+marker.id);
+      var m = new mapboxgl.Marker().setLngLat([marker.lon, marker.lat]).setPopup(marker.popup).addTo(map);
   })
 </script>
 <% include ../partials/footer %>
