@@ -211,20 +211,18 @@ body {
 }
 
 /* Menu styling */
-.menu_item_col {
-  width: 50%;
-}
-
-.left {
+.menu-item {
   float: left;
   border-left: none;
   border-right: none;
+  border-bottom: none;
 }
 
-.right {
+.menu-price {
   float: right;
   border-left: none;
   border-right: none;
+  border-top: none;
   text-align: right;
 }
 /* Mapbox styling */
@@ -281,4 +279,17 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
   }
+}
+
+/* custom colors */
+
+.button-light-teal {
+  color: #009688;
+  transform: scale(2);
+}
+.button-light-teal:hover {
+  color: blue;
+}
+.button-light-teal:active {
+  color: teal;
 }

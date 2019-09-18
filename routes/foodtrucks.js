@@ -11,23 +11,6 @@ const options = {
 };
 const geocoder = NodeGeocoder(options);
 let categoryList = [];
-FoodTruck.find({}, (err, allTrucks) => {
-  if (err) {
-    console.log(err);
-  } else {
-    // Extract category for every single truck
-    allTrucks.forEach(truck => {
-      categoryList.push(truck.category);
-    });
-  }
-});
-// Only unique values allowed in the Set
-const uniqueSet = new Set(categoryList);
-categoryList = [...uniqueSet];
-categoryList.sort();
-categoryList.unshift("All");
-categoryList.unshift("Select Category");
-
 //INDEX - show foodtrucks
 router.get("/", function(req, res) {
   // Get all foodtruckss from DB
@@ -35,14 +18,33 @@ router.get("/", function(req, res) {
   if (req.query.searchKey && req.query.searchKey !== "All") {
     searchOption = { category: req.query.searchKey };
   }
-
+  // Reset the category list
+  categoryList = [];
   FoodTruck.find(searchOption, function(err, allFoodtrucks) {
     if (err) {
       console.log(err);
     } else {
-      res.render("foodtrucks/index", {
-        foodtrucks: allFoodtrucks,
-        categories: categoryList
+      // Identify the categories of food trucks
+      FoodTruck.find({}, (err, allTrucks) => {
+        if (err) {
+          req.flash("error", "No FoodTrucks found");
+          res.redirect("back");
+        } else {
+          // Extract category for every single truck
+          allTrucks.forEach(truck => {
+            categoryList.push(truck.category);
+          });
+          // Only unique values allowed in the Set
+          const uniqueSet = new Set(categoryList);
+          categoryList = [...uniqueSet];
+          categoryList.sort();
+          categoryList.unshift("All");
+          categoryList.unshift("Select Category");
+          res.render("foodtrucks/index", {
+            foodtrucks: allFoodtrucks,
+            categories: categoryList
+          });
+        }
       });
     }
   });

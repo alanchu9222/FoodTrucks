@@ -33,7 +33,7 @@
   <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
       <button
-        class="navbar-toggler"
+        class="navbar-toggler navbar-dark"
         type="button"
         data-toggle="collapse"
         data-target="#navbarTogglerDemo01"
@@ -45,9 +45,22 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/">Melbourne City Food Trucks</a>
+          <a
+            class="navbar-brand btn btn-lg btn-primary btn-ripple"
+            href="/foodtrucks"
+            >Melbourne City Food Trucks</a
+          >
         </div>
+
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+          <li>
+            <a
+              class="btn btn-lg btn-primary btn-ripple"
+              href="/foodtrucks/citymap"
+              >City Map</a
+            >
+          </li>
+
           <% if(!currentUser){ %>
           <li>
             <a class="btn btn-lg btn-primary btn-ripple" href="/login">Login</a>

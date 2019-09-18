@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <div class="truck-menu-title"><%= foodtruck.name %>		
+      <div class="truck-menu-title"><%= foodtruck.name %>
         <%if(foodtruck.item[0]){ %>
         Menu
         <%}%>
@@ -10,15 +10,18 @@
       <div class="list-group truck-menu">
         <% const max= foodtruck.item.length;
 		    for (let i=0; i<max; i++) {%>
-			<% if(foodtruck.item[i]) { %>
-			<div class="list-group-item menu_item_col left"><%=foodtruck.item[i]%></div>
-			<div class="list-group-item menu_item_col right">$<%=foodtruck.price[i]%></div>
-			<% } %>
-		<%}
+        <% if(foodtruck.item[i]) { %>
+        <div class="list-group-item menu-item"><%=foodtruck.item[i]%></div>
+        <div class="list-group-item menu-price">$<%=foodtruck.price[i]%></div>
+        <% } %>
+        <%}
 		%>
-	  </div>
-	  <div id="map"></div>
-	</div>		  
+      </div>
+      <div class="truck-story-title">
+          <%=foodtruck.location%>
+      </div>
+      <div id="map"></div>
+    </div>
     <div class="col-md-9">
       <div class="thumbnail">
         <img class="img-responsive" src="<%= foodtruck.image %>" />
@@ -27,28 +30,28 @@
             <i class="fa fa-phone"></i> <%= foodtruck.phone %>
             <i class="fa fa-envelope"></i> <%= foodtruck.email %>
             <i class="fa fa-utensils"></i> <%= foodtruck.category %>
-          </div>
-            <div class="truck-story-title">
-              <%=foodtruck.name%>
-            </div>
 
-            <div class="truck-story">
-              <%= foodtruck.description %>
-            </div>
+          </div>
+          <br>
+          <div class="truck-story-title float-right">
+            <a class="button-light-teal" href="<%= foodtruck.instagram %>"><i class="fab fa-instagram"></i></a>
+            <a class="button-light-teal" href="<%= foodtruck.facebook %>"><i class="fab fa-facebook-square"></i></a> 
+            <a class="button-light-teal" href="<%= foodtruck.store %>"><i class="fas fa-store"></i></a> 
+          </div>
+
+          <div class="truck-story-title">
+            <%=foodtruck.name%>
+          </div>
+
+          <div class="truck-story">
+            <%= foodtruck.description %>
+          </div>
           <p>
             <em>Submitted By <%= foodtruck.author.username %> </em>
           </p>
           <% if(currentUser && foodtruck.author.id.equals(currentUser._id)){ %>
-          <a
-            class="btn btn-warning btn-primary btn-ripple"
-            href="/foodtrucks/<%= foodtruck._id %>/edit"
-            >Edit</a
-          >
-          <form
-            id="delete-form"
-            action="/foodtrucks/<%= foodtruck._id %>?_method=DELETE"
-            method="POST"
-          >
+          <a class="btn btn-primary btn-ripple" href="/foodtrucks/<%= foodtruck._id %>/edit">Edit</a>
+          <form id="delete-form" action="/foodtrucks/<%= foodtruck._id %>?_method=DELETE" method="POST">
             <button class="btn btn-danger btn-primary btn-ripple">
               Delete
             </button>
@@ -58,11 +61,8 @@
       </div>
       <div class="well">
         <div class="text-right">
-          <a
-            class="btn btn-success btn-primary btn-ripple"
-            href="/foodtrucks/<%= foodtruck._id %>/comments/new"
-            >Add New Comment</a
-          >
+          <a class="btn btn-success btn-primary btn-ripple" href="/foodtrucks/<%= foodtruck._id %>/comments/new">Add New
+            Comment</a>
         </div>
         <hr />
         <% foodtruck.comments.forEach(function(comment){ %>
@@ -77,43 +77,32 @@
             </p>
             <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
 
-            <a
-              class="btn btn-primary"
-              href="/foodtrucks/<%=foodtruck._id %>/comments/<%=comment._id %>/edit"
-              >Edit</a
-            >
-            <form
-              id="delete-form"
-              action="/foodtrucks/<%=foodtruck._id %>/comments/<%=comment._id %>?_method=DELETE"
-              method="POST"
-            >
-              <input
-                type="submit"
-                class="btn btn-danger btn-primary btn-ripple"
-                value="Delete"
-              />
+            <a class="btn btn-primary" href="/foodtrucks/<%=foodtruck._id %>/comments/<%=comment._id %>/edit">Edit</a>
+            <form id="delete-form" action="/foodtrucks/<%=foodtruck._id %>/comments/<%=comment._id %>?_method=DELETE"
+              method="POST">
+              <input type="submit" class="btn btn-danger btn-primary btn-ripple" value="Delete" />
             </form>
             <%}%>
           </div>
         </div>
         <% }) %>
+          </div>
+        </div>
       </div>
-	</div>
-  </div>
-</div>
+    </div>
 
-<script>
-const lat = <%=foodtruck.lat%>;
-const lon = <%=foodtruck.lon%>;
+    <script>
+      const lat = <%=foodtruck.lat%>;
+      const lon = <%=foodtruck.lon%>;
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiYWxhbmNodSIsImEiOiJjazBsdzA4OXAwbzdpM2VwOW1zaGo4NWl4In0.EYn2kr7DOFk0PSMVk3lhSQ";
-var map = new mapboxgl.Map({
-  container: "map", // HTML container id
-  style: "mapbox://styles/mapbox/streets-v11", // style URL
-  center: [lon, lat], // starting position as [lng, lat]
-  zoom: 13
-});
-var marker = new mapboxgl.Marker().setLngLat([lon, lat]).addTo(map);
-</script>
-<% include ../partials/footer %>
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoiYWxhbmNodSIsImEiOiJjazBsdzA4OXAwbzdpM2VwOW1zaGo4NWl4In0.EYn2kr7DOFk0PSMVk3lhSQ";
+      var map = new mapboxgl.Map({
+        container: "map", // HTML container id
+        style: "mapbox://styles/mapbox/streets-v11", // style URL
+        center: [lon, lat], // starting position as [lng, lat]
+        zoom: 13
+      });
+      var marker = new mapboxgl.Marker().setLngLat([lon, lat]).addTo(map);
+    </script>
+    <% include ../partials/footer %>
