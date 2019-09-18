@@ -52,7 +52,18 @@ router.get("/", function(req, res) {
 
 //CITYMAP - show map of foodtrucks
 router.get("/citymap", function(req, res) {
-  res.render("foodtrucks/citymap");
+  //  Pass all trucks to the city map so that
+  //  Truck page can be access from a click on the interactive marker
+  FoodTruck.find({}, (err, allTrucks) => {
+    if (err) {
+      req.flash("error", "No FoodTrucks found");
+      res.redirect("back");
+    } else {
+      res.render("foodtrucks/citymap", {
+        foodtrucks: allTrucks
+      });
+    }
+  });
 });
 
 //CREATE - add new foodtrucks to DB

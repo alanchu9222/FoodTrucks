@@ -1,5 +1,10 @@
 <% include ../partials/header %>
+
 <div class="container">
+  <%foodtrucks.forEach((truck)=>{%>
+  <div id="<%=truck._id%>" class="marker"></div>
+  <%})%>
+
   <div class="form-footer"><a href="/foodtrucks">Go to Main</a></div>
   <div class="row">
     <div class="col-md-12">
@@ -9,17 +14,33 @@
 </div>
 
 <script>
-  const lat = -37.8136;
-  const lon = 144.9631;
+   let markers = [];
 
-  mapboxgl.accessToken =
-    "pk.eyJ1IjoiYWxhbmNodSIsImEiOiJjazBsdzA4OXAwbzdpM2VwOW1zaGo4NWl4In0.EYn2kr7DOFk0PSMVk3lhSQ";
-  var map = new mapboxgl.Map({
-    container: "citymap", // HTML container id
-    style: "mapbox://styles/mapbox/streets-v11", // style URL
-    center: [lon, lat], // starting position as [lng, lat]
-    zoom: 13
-  });
-  var marker = new mapboxgl.Marker().setLngLat([lon, lat]).addTo(map);
+   <%foodtrucks.forEach((truck)=>{%>
+       markers.push(
+         {
+           id:"<%=truck._id%>",
+           lat:<%=truck.lat%>,
+           lon:<%=truck.lon%>
+         }
+       );
+   <%})%>
+
+   const map_lat = -37.8136;
+   const map_lon = 144.9631;
+
+   mapboxgl.accessToken =
+     "pk.eyJ1IjoiYWxhbmNodSIsImEiOiJjazBsdzA4OXAwbzdpM2VwOW1zaGo4NWl4In0.EYn2kr7DOFk0PSMVk3lhSQ";
+   var map = new mapboxgl.Map({
+     container: "citymap", // HTML container id
+     style: "mapbox://styles/mapbox/streets-v11", // style URL
+     center: [map_lon, map_lat], // starting position as [lng, lat]
+     zoom: 11
+   });
+
+   markers.forEach((marker)=>{
+      var m = new mapboxgl.Marker().setLngLat([marker.lon, marker.lat]).addTo(map);
+      console.log("marker for "+marker.id);
+  })
 </script>
 <% include ../partials/footer %>
