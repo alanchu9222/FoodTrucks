@@ -11,6 +11,7 @@ const foodtruckSchema = new mongoose.Schema({
   image: String,
   website: String,
   instagram: String,
+  twitter: String,
   facebook: String,
   location: String,
   lat: Number,
