@@ -4,7 +4,7 @@
   <div class="row text-center" style="display:flex; flex-wrap:wrap;">
     <div class="col-md-3 col-sm-6" style="margin:auto;">
       <form action="" method="GET" onchange="submit()">
-        <select class="form-control" name="searchKey">
+        <select class="form-control search-box" name="searchKey">
           <% categories.forEach((cat)=>{%>
           <option value="<%=cat%>"><%=cat%></option>
           <%}) %>
