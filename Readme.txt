@@ -1,5 +1,4 @@
-The plan for yelp_v1
-
+Plan
 (1) Landing page
 (2) FoodTruck page listing all the food trucks
 
